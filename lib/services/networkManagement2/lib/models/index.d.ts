@@ -19,6 +19,8 @@ export { CloudError } from 'ms-rest-azure';
  * @class
  * Initializes a new instance of the SubResource class.
  * @constructor
+ * Reference to another subresource.
+ *
  * @member {string} [id] Resource ID.
  *
  */
@@ -75,7 +77,7 @@ export interface BackendAddressPool extends SubResource {
  *
  * @member {object} [backendIPConfiguration] A reference to a private IP
  * address defined on a network interface of a VM. Traffic sent to the frontend
- * port of each of the frontend IP configurations is forwarded to the backed
+ * port of each of the frontend IP configurations is forwarded to the backend
  * IP.
  *
  * @member {array}
@@ -88,7 +90,8 @@ export interface BackendAddressPool extends SubResource {
  * @member {array} [backendIPConfiguration.loadBalancerInboundNatRules] A list
  * of references of LoadBalancerInboundNatRules.
  *
- * @member {string} [backendIPConfiguration.privateIPAddress]
+ * @member {string} [backendIPConfiguration.privateIPAddress] Private IP
+ * address of the IP configuration.
  *
  * @member {string} [backendIPConfiguration.privateIPAllocationMethod] Defines
  * how a private IP address is assigned. Possible values are: 'Static' and
@@ -99,7 +102,8 @@ export interface BackendAddressPool extends SubResource {
  * ipconfiguration is IPv4 or IPv6. Default is taken as IPv4.  Possible values
  * are: 'IPv4' and 'IPv6'. Possible values include: 'IPv4', 'IPv6'
  *
- * @member {object} [backendIPConfiguration.subnet]
+ * @member {object} [backendIPConfiguration.subnet] Subnet bound to the IP
+ * configuration.
  *
  * @member {string} [backendIPConfiguration.subnet.addressPrefix] The address
  * prefix for the subnet.
@@ -151,9 +155,6 @@ export interface BackendAddressPool extends SubResource {
  * @member {string} [backendIPConfiguration.subnet.routeTable.etag] Gets a
  * unique read-only string that changes whenever the resource is updated.
  *
- * @member {array} [backendIPConfiguration.subnet.privateAccessServices] An
- * array of private access services values.
- *
  * @member {array} [backendIPConfiguration.subnet.ipConfigurations] Gets an
  * array of references to the network interface IP configurations using subnet.
  *
@@ -173,7 +174,8 @@ export interface BackendAddressPool extends SubResource {
  * @member {boolean} [backendIPConfiguration.primary] Gets whether this is a
  * primary customer address on the network interface.
  *
- * @member {object} [backendIPConfiguration.publicIPAddress]
+ * @member {object} [backendIPConfiguration.publicIPAddress] Public IP address
+ * bound to the IP configuration.
  *
  * @member {string}
  * [backendIPConfiguration.publicIPAddress.publicIPAllocationMethod] The public
@@ -186,6 +188,7 @@ export interface BackendAddressPool extends SubResource {
  * include: 'IPv4', 'IPv6'
  *
  * @member {object} [backendIPConfiguration.publicIPAddress.ipConfiguration]
+ * The IP configuration associated with the public IP address.
  *
  * @member {string}
  * [backendIPConfiguration.publicIPAddress.ipConfiguration.privateIPAddress]
@@ -260,10 +263,6 @@ export interface BackendAddressPool extends SubResource {
  * updated.
  *
  * @member {array}
- * [backendIPConfiguration.publicIPAddress.ipConfiguration.subnet.privateAccessServices]
- * An array of private access services values.
- *
- * @member {array}
  * [backendIPConfiguration.publicIPAddress.ipConfiguration.subnet.ipConfigurations]
  * Gets an array of references to the network interface IP configurations using
  * subnet.
@@ -325,7 +324,8 @@ export interface BackendAddressPool extends SubResource {
  * PTR DNS record is created pointing from the IP address in the in-addr.arpa
  * domain to the reverse FQDN.
  *
- * @member {string} [backendIPConfiguration.publicIPAddress.ipAddress]
+ * @member {string} [backendIPConfiguration.publicIPAddress.ipAddress] The IP
+ * address associated with the public IP address resource.
  *
  * @member {number}
  * [backendIPConfiguration.publicIPAddress.idleTimeoutInMinutes] The idle
@@ -341,7 +341,9 @@ export interface BackendAddressPool extends SubResource {
  * @member {string} [backendIPConfiguration.publicIPAddress.etag] A unique
  * read-only string that changes whenever the resource is updated.
  *
- * @member {string} [backendIPConfiguration.provisioningState]
+ * @member {string} [backendIPConfiguration.provisioningState] The provisioning
+ * state of the network interface IP configuration. Possible values are:
+ * 'Updating', 'Deleting', and 'Failed'.
  *
  * @member {string} [backendIPConfiguration.name] The name of the resource that
  * is unique within a resource group. This name can be used to access the
@@ -418,10 +420,19 @@ export interface InboundNatRule extends SubResource {
  * 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used. If
  * this is an ingress rule, specifies where network traffic originates from.
  *
+ * @member {array} [sourceAddressPrefixes] The CIDR or source IP ranges.
+ *
  * @member {string} destinationAddressPrefix The destination address prefix.
- * CIDR or source IP range. Asterix '*' can also be used to match all source
- * IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and
+ * CIDR or destination IP range. Asterix '*' can also be used to match all
+ * source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and
  * 'Internet' can also be used.
+ *
+ * @member {array} [destinationAddressPrefixes] The destination address
+ * prefixes. CIDR or destination IP ranges.
+ *
+ * @member {array} [sourcePortRanges] The source port ranges.
+ *
+ * @member {array} [destinationPortRanges] The destination port ranges.
  *
  * @member {string} access The network traffic is allowed or denied. Possible
  * values are: 'Allow' and 'Deny'. Possible values include: 'Allow', 'Deny'
@@ -452,7 +463,11 @@ export interface SecurityRule extends SubResource {
   sourcePortRange?: string;
   destinationPortRange?: string;
   sourceAddressPrefix: string;
+  sourceAddressPrefixes?: string[];
   destinationAddressPrefix: string;
+  destinationAddressPrefixes?: string[];
+  sourcePortRanges?: string[];
+  destinationPortRanges?: string[];
   access: string;
   priority?: number;
   direction: string;
@@ -501,6 +516,8 @@ export interface NetworkInterfaceDnsSettings {
  * @class
  * Initializes a new instance of the Resource class.
  * @constructor
+ * Common resource representation.
+ *
  * @member {string} [id] Resource ID.
  *
  * @member {string} [name] Resource name.
@@ -718,25 +735,6 @@ export interface RouteTable extends Resource {
 
 /**
  * @class
- * Initializes a new instance of the PrivateAccessServicePropertiesFormat class.
- * @constructor
- * The private access service properties.
- *
- * @member {string} [service] The type of the private access.
- *
- * @member {array} [locations] A list of locations.
- *
- * @member {string} [provisioningState] The provisioning state of the resource.
- *
- */
-export interface PrivateAccessServicePropertiesFormat {
-  service?: string;
-  locations?: string[];
-  provisioningState?: string;
-}
-
-/**
- * @class
  * Initializes a new instance of the PublicIPAddressDnsSettings class.
  * @constructor
  * Contains FQDN of the DNS record associated with the public IP address
@@ -777,7 +775,8 @@ export interface PublicIPAddressDnsSettings {
  * Possible values are: 'IPv4' and 'IPv6'. Possible values include: 'IPv4',
  * 'IPv6'
  *
- * @member {object} [ipConfiguration]
+ * @member {object} [ipConfiguration] The IP configuration associated with the
+ * public IP address.
  *
  * @member {string} [ipConfiguration.privateIPAddress] The private IP address
  * of the IP configuration.
@@ -836,9 +835,6 @@ export interface PublicIPAddressDnsSettings {
  * @member {string} [ipConfiguration.subnet.routeTable.etag] Gets a unique
  * read-only string that changes whenever the resource is updated.
  *
- * @member {array} [ipConfiguration.subnet.privateAccessServices] An array of
- * private access services values.
- *
  * @member {array} [ipConfiguration.subnet.ipConfigurations] Gets an array of
  * references to the network interface IP configurations using subnet.
  *
@@ -887,7 +883,8 @@ export interface PublicIPAddressDnsSettings {
  * address. If the reverseFqdn is specified, then a PTR DNS record is created
  * pointing from the IP address in the in-addr.arpa domain to the reverse FQDN.
  *
- * @member {string} [ipAddress]
+ * @member {string} [ipAddress] The IP address associated with the public IP
+ * address resource.
  *
  * @member {number} [idleTimeoutInMinutes] The idle timeout of the public IP
  * address.
@@ -972,9 +969,6 @@ export interface PublicIPAddress extends Resource {
  * @member {string} [subnet.routeTable.etag] Gets a unique read-only string
  * that changes whenever the resource is updated.
  *
- * @member {array} [subnet.privateAccessServices] An array of private access
- * services values.
- *
  * @member {array} [subnet.ipConfigurations] Gets an array of references to the
  * network interface IP configurations using subnet.
  *
@@ -1000,7 +994,8 @@ export interface PublicIPAddress extends Resource {
  * address version. Possible values are: 'IPv4' and 'IPv6'. Possible values
  * include: 'IPv4', 'IPv6'
  *
- * @member {object} [publicIPAddress.ipConfiguration]
+ * @member {object} [publicIPAddress.ipConfiguration] The IP configuration
+ * associated with the public IP address.
  *
  * @member {object} [publicIPAddress.dnsSettings] The FQDN of the DNS record
  * associated with the public IP address.
@@ -1022,7 +1017,8 @@ export interface PublicIPAddress extends Resource {
  * record is created pointing from the IP address in the in-addr.arpa domain to
  * the reverse FQDN.
  *
- * @member {string} [publicIPAddress.ipAddress]
+ * @member {string} [publicIPAddress.ipAddress] The IP address associated with
+ * the public IP address resource.
  *
  * @member {number} [publicIPAddress.idleTimeoutInMinutes] The idle timeout of
  * the public IP address.
@@ -1132,9 +1128,6 @@ export interface ResourceNavigationLink extends SubResource {
  * @member {string} [routeTable.etag] Gets a unique read-only string that
  * changes whenever the resource is updated.
  *
- * @member {array} [privateAccessServices] An array of private access services
- * values.
- *
  * @member {array} [ipConfigurations] Gets an array of references to the
  * network interface IP configurations using subnet.
  *
@@ -1154,7 +1147,6 @@ export interface Subnet extends SubResource {
   addressPrefix?: string;
   networkSecurityGroup?: NetworkSecurityGroup;
   routeTable?: RouteTable;
-  privateAccessServices?: PrivateAccessServicePropertiesFormat[];
   readonly ipConfigurations?: IPConfiguration[];
   resourceNavigationLinks?: ResourceNavigationLink[];
   provisioningState?: string;
@@ -1177,7 +1169,8 @@ export interface Subnet extends SubResource {
  * @member {array} [loadBalancerInboundNatRules] A list of references of
  * LoadBalancerInboundNatRules.
  *
- * @member {string} [privateIPAddress]
+ * @member {string} [privateIPAddress] Private IP address of the IP
+ * configuration.
  *
  * @member {string} [privateIPAllocationMethod] Defines how a private IP
  * address is assigned. Possible values are: 'Static' and 'Dynamic'. Possible
@@ -1188,7 +1181,7 @@ export interface Subnet extends SubResource {
  * IPv4 or IPv6. Default is taken as IPv4.  Possible values are: 'IPv4' and
  * 'IPv6'. Possible values include: 'IPv4', 'IPv6'
  *
- * @member {object} [subnet]
+ * @member {object} [subnet] Subnet bound to the IP configuration.
  *
  * @member {string} [subnet.addressPrefix] The address prefix for the subnet.
  *
@@ -1233,9 +1226,6 @@ export interface Subnet extends SubResource {
  * @member {string} [subnet.routeTable.etag] Gets a unique read-only string
  * that changes whenever the resource is updated.
  *
- * @member {array} [subnet.privateAccessServices] An array of private access
- * services values.
- *
  * @member {array} [subnet.ipConfigurations] Gets an array of references to the
  * network interface IP configurations using subnet.
  *
@@ -1254,7 +1244,8 @@ export interface Subnet extends SubResource {
  * @member {boolean} [primary] Gets whether this is a primary customer address
  * on the network interface.
  *
- * @member {object} [publicIPAddress]
+ * @member {object} [publicIPAddress] Public IP address bound to the IP
+ * configuration.
  *
  * @member {string} [publicIPAddress.publicIPAllocationMethod] The public IP
  * allocation method. Possible values are: 'Static' and 'Dynamic'. Possible
@@ -1264,7 +1255,8 @@ export interface Subnet extends SubResource {
  * address version. Possible values are: 'IPv4' and 'IPv6'. Possible values
  * include: 'IPv4', 'IPv6'
  *
- * @member {object} [publicIPAddress.ipConfiguration]
+ * @member {object} [publicIPAddress.ipConfiguration] The IP configuration
+ * associated with the public IP address.
  *
  * @member {string} [publicIPAddress.ipConfiguration.privateIPAddress] The
  * private IP address of the IP configuration.
@@ -1330,10 +1322,6 @@ export interface Subnet extends SubResource {
  * Gets a unique read-only string that changes whenever the resource is
  * updated.
  *
- * @member {array}
- * [publicIPAddress.ipConfiguration.subnet.privateAccessServices] An array of
- * private access services values.
- *
  * @member {array} [publicIPAddress.ipConfiguration.subnet.ipConfigurations]
  * Gets an array of references to the network interface IP configurations using
  * subnet.
@@ -1386,7 +1374,8 @@ export interface Subnet extends SubResource {
  * record is created pointing from the IP address in the in-addr.arpa domain to
  * the reverse FQDN.
  *
- * @member {string} [publicIPAddress.ipAddress]
+ * @member {string} [publicIPAddress.ipAddress] The IP address associated with
+ * the public IP address resource.
  *
  * @member {number} [publicIPAddress.idleTimeoutInMinutes] The idle timeout of
  * the public IP address.
@@ -1401,7 +1390,9 @@ export interface Subnet extends SubResource {
  * @member {string} [publicIPAddress.etag] A unique read-only string that
  * changes whenever the resource is updated.
  *
- * @member {string} [provisioningState]
+ * @member {string} [provisioningState] The provisioning state of the network
+ * interface IP configuration. Possible values are: 'Updating', 'Deleting', and
+ * 'Failed'.
  *
  * @member {string} [name] The name of the resource that is unique within a
  * resource group. This name can be used to access the resource.
@@ -1595,7 +1586,8 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * @member {array} [ipConfiguration.loadBalancerInboundNatRules] A list of
  * references of LoadBalancerInboundNatRules.
  *
- * @member {string} [ipConfiguration.privateIPAddress]
+ * @member {string} [ipConfiguration.privateIPAddress] Private IP address of
+ * the IP configuration.
  *
  * @member {string} [ipConfiguration.privateIPAllocationMethod] Defines how a
  * private IP address is assigned. Possible values are: 'Static' and 'Dynamic'.
@@ -1606,7 +1598,8 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * ipconfiguration is IPv4 or IPv6. Default is taken as IPv4.  Possible values
  * are: 'IPv4' and 'IPv6'. Possible values include: 'IPv4', 'IPv6'
  *
- * @member {object} [ipConfiguration.subnet]
+ * @member {object} [ipConfiguration.subnet] Subnet bound to the IP
+ * configuration.
  *
  * @member {string} [ipConfiguration.subnet.addressPrefix] The address prefix
  * for the subnet.
@@ -1655,9 +1648,6 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * @member {string} [ipConfiguration.subnet.routeTable.etag] Gets a unique
  * read-only string that changes whenever the resource is updated.
  *
- * @member {array} [ipConfiguration.subnet.privateAccessServices] An array of
- * private access services values.
- *
  * @member {array} [ipConfiguration.subnet.ipConfigurations] Gets an array of
  * references to the network interface IP configurations using subnet.
  *
@@ -1677,7 +1667,8 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * @member {boolean} [ipConfiguration.primary] Gets whether this is a primary
  * customer address on the network interface.
  *
- * @member {object} [ipConfiguration.publicIPAddress]
+ * @member {object} [ipConfiguration.publicIPAddress] Public IP address bound
+ * to the IP configuration.
  *
  * @member {string} [ipConfiguration.publicIPAddress.publicIPAllocationMethod]
  * The public IP allocation method. Possible values are: 'Static' and
@@ -1687,7 +1678,8 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * The public IP address version. Possible values are: 'IPv4' and 'IPv6'.
  * Possible values include: 'IPv4', 'IPv6'
  *
- * @member {object} [ipConfiguration.publicIPAddress.ipConfiguration]
+ * @member {object} [ipConfiguration.publicIPAddress.ipConfiguration] The IP
+ * configuration associated with the public IP address.
  *
  * @member {string}
  * [ipConfiguration.publicIPAddress.ipConfiguration.privateIPAddress] The
@@ -1761,10 +1753,6 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * updated.
  *
  * @member {array}
- * [ipConfiguration.publicIPAddress.ipConfiguration.subnet.privateAccessServices]
- * An array of private access services values.
- *
- * @member {array}
  * [ipConfiguration.publicIPAddress.ipConfiguration.subnet.ipConfigurations]
  * Gets an array of references to the network interface IP configurations using
  * subnet.
@@ -1823,7 +1811,8 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * then a PTR DNS record is created pointing from the IP address in the
  * in-addr.arpa domain to the reverse FQDN.
  *
- * @member {string} [ipConfiguration.publicIPAddress.ipAddress]
+ * @member {string} [ipConfiguration.publicIPAddress.ipAddress] The IP address
+ * associated with the public IP address resource.
  *
  * @member {number} [ipConfiguration.publicIPAddress.idleTimeoutInMinutes] The
  * idle timeout of the public IP address.
@@ -1838,7 +1827,9 @@ export interface ApplicationGatewayBackendHttpSettings extends SubResource {
  * @member {string} [ipConfiguration.publicIPAddress.etag] A unique read-only
  * string that changes whenever the resource is updated.
  *
- * @member {string} [ipConfiguration.provisioningState]
+ * @member {string} [ipConfiguration.provisioningState] The provisioning state
+ * of the network interface IP configuration. Possible values are: 'Updating',
+ * 'Deleting', and 'Failed'.
  *
  * @member {string} [ipConfiguration.name] The name of the resource that is
  * unique within a resource group. This name can be used to access the
@@ -3014,7 +3005,7 @@ export interface RouteFilterRule extends SubResource {
   access: string;
   communities: string[];
   readonly provisioningState?: string;
-  readonly name?: string;
+  name?: string;
   location?: string;
   readonly etag?: string;
   tags?: { [propertyName: string]: string };
@@ -3236,7 +3227,7 @@ export interface ExpressRouteCircuitPeering extends SubResource {
  */
 export interface RouteFilter extends Resource {
   rules?: RouteFilterRule[];
-  readonly peerings?: ExpressRouteCircuitPeering[];
+  peerings?: ExpressRouteCircuitPeering[];
   readonly provisioningState?: string;
   readonly etag?: string;
 }
@@ -3693,9 +3684,6 @@ export interface ExpressRouteServiceProviderListResult {
  * @member {string} [subnet.routeTable.etag] Gets a unique read-only string
  * that changes whenever the resource is updated.
  *
- * @member {array} [subnet.privateAccessServices] An array of private access
- * services values.
- *
  * @member {array} [subnet.ipConfigurations] Gets an array of references to the
  * network interface IP configurations using subnet.
  *
@@ -3721,7 +3709,8 @@ export interface ExpressRouteServiceProviderListResult {
  * address version. Possible values are: 'IPv4' and 'IPv6'. Possible values
  * include: 'IPv4', 'IPv6'
  *
- * @member {object} [publicIPAddress.ipConfiguration]
+ * @member {object} [publicIPAddress.ipConfiguration] The IP configuration
+ * associated with the public IP address.
  *
  * @member {string} [publicIPAddress.ipConfiguration.privateIPAddress] The
  * private IP address of the IP configuration.
@@ -3787,10 +3776,6 @@ export interface ExpressRouteServiceProviderListResult {
  * Gets a unique read-only string that changes whenever the resource is
  * updated.
  *
- * @member {array}
- * [publicIPAddress.ipConfiguration.subnet.privateAccessServices] An array of
- * private access services values.
- *
  * @member {array} [publicIPAddress.ipConfiguration.subnet.ipConfigurations]
  * Gets an array of references to the network interface IP configurations using
  * subnet.
@@ -3843,7 +3828,8 @@ export interface ExpressRouteServiceProviderListResult {
  * record is created pointing from the IP address in the in-addr.arpa domain to
  * the reverse FQDN.
  *
- * @member {string} [publicIPAddress.ipAddress]
+ * @member {string} [publicIPAddress.ipAddress] The IP address associated with
+ * the public IP address resource.
  *
  * @member {number} [publicIPAddress.idleTimeoutInMinutes] The idle timeout of
  * the public IP address.
@@ -3887,7 +3873,7 @@ export interface FrontendIPConfiguration extends SubResource {
  * @class
  * Initializes a new instance of the LoadBalancingRule class.
  * @constructor
- * A loag balancing rule for a load balancer.
+ * A load balancing rule for a load balancer.
  *
  * @member {object} [frontendIPConfiguration] A reference to frontend IP
  * addresses.
@@ -4173,6 +4159,22 @@ export interface LoadBalancerListResult {
 
 /**
  * @class
+ * Initializes a new instance of the InboundNatRuleListResult class.
+ * @constructor
+ * Response for ListInboundNatRule API service call.
+ *
+ * @member {array} [value] A list of inbound nat rules in a load balancer.
+ *
+ * @member {string} [nextLink] The URL to get the next set of results.
+ *
+ */
+export interface InboundNatRuleListResult {
+  value?: InboundNatRule[];
+  nextLink?: string;
+}
+
+/**
+ * @class
  * Initializes a new instance of the ErrorDetails class.
  * @constructor
  * @member {string} [code]
@@ -4293,16 +4295,33 @@ export interface EffectiveNetworkSecurityGroupAssociation {
  * (if created by the user).
  *
  * @member {string} [protocol] The network protocol this rule applies to.
- * Possible values are: 'Tcp', 'Udp', and '*'. Possible values include: 'Tcp',
- * 'Udp', '*'
+ * Possible values are: 'Tcp', 'Udp', and 'All'. Possible values include:
+ * 'Tcp', 'Udp', 'All'
  *
  * @member {string} [sourcePortRange] The source port or range.
  *
  * @member {string} [destinationPortRange] The destination port or range.
  *
+ * @member {array} [sourcePortRanges] The source port ranges. Expected values
+ * include a single integer between 0 and 65535, a range using '-' as seperator
+ * (e.g. 100-400), or an asterix (*)
+ *
+ * @member {array} [destinationPortRanges] The destination port ranges.
+ * Expected values include a single integer between 0 and 65535, a range using
+ * '-' as seperator (e.g. 100-400), or an asterix (*)
+ *
  * @member {string} [sourceAddressPrefix] The source address prefix.
  *
  * @member {string} [destinationAddressPrefix] The destination address prefix.
+ *
+ * @member {array} [sourceAddressPrefixes] The source address prefixes.
+ * Expected values include CIDR IP ranges, Default Tags (VirtualNetwork,
+ * AureLoadBalancer, Internet), System Tags, and the asterix (*).
+ *
+ * @member {array} [destinationAddressPrefixes] The destination address
+ * prefixes. Expected values include CIDR IP ranges, Default Tags
+ * (VirtualNetwork, AureLoadBalancer, Internet), System Tags, and the asterix
+ * (*).
  *
  * @member {array} [expandedSourceAddressPrefix] The expanded source address
  * prefix.
@@ -4325,8 +4344,12 @@ export interface EffectiveNetworkSecurityRule {
   protocol?: string;
   sourcePortRange?: string;
   destinationPortRange?: string;
+  sourcePortRanges?: string[];
+  destinationPortRanges?: string[];
   sourceAddressPrefix?: string;
   destinationAddressPrefix?: string;
+  sourceAddressPrefixes?: string[];
+  destinationAddressPrefixes?: string[];
   expandedSourceAddressPrefix?: string[];
   expandedDestinationAddressPrefix?: string[];
   access?: string;
@@ -4345,7 +4368,7 @@ export interface EffectiveNetworkSecurityRule {
  *
  * @member {string} [networkSecurityGroup.id] Resource ID.
  *
- * @member {object} [association]
+ * @member {object} [association] Associated resources.
  *
  * @member {object} [association.subnet] The ID of the subnet if assigned.
  *
@@ -4359,11 +4382,15 @@ export interface EffectiveNetworkSecurityRule {
  * @member {array} [effectiveSecurityRules] A collection of effective security
  * rules.
  *
+ * @member {object} [tagMap] Mapping of tags to list of IP Addresses included
+ * within the tag.
+ *
  */
 export interface EffectiveNetworkSecurityGroup {
   networkSecurityGroup?: SubResource;
   association?: EffectiveNetworkSecurityGroupAssociation;
   effectiveSecurityRules?: EffectiveNetworkSecurityRule[];
+  tagMap?: { [propertyName: string]: string[] };
 }
 
 /**
@@ -5492,7 +5519,7 @@ export interface PatchRouteFilterRule extends SubResource {
  */
 export interface PatchRouteFilter extends SubResource {
   rules?: RouteFilterRule[];
-  readonly peerings?: ExpressRouteCircuitPeering[];
+  peerings?: ExpressRouteCircuitPeering[];
   readonly provisioningState?: string;
   readonly name?: string;
   readonly etag?: string;
@@ -6834,39 +6861,6 @@ export interface LocalNetworkGatewayListResult {
 
 /**
  * @class
- * Initializes a new instance of the PrivateAccessServiceResult class.
- * @constructor
- * Private access service.
- *
- * @member {string} [name] Name of the private access value.
- *
- * @member {string} [type] Type of the private access value.
- *
- */
-export interface PrivateAccessServiceResult extends SubResource {
-  readonly name?: string;
-  readonly type?: string;
-}
-
-/**
- * @class
- * Initializes a new instance of the PrivateAccessServicesListResult class.
- * @constructor
- * Response for the ListAvailablePrivateAccessServices API service call.
- *
- * @member {array} [value] List of available private access service values in a
- * region.
- *
- * @member {string} [nextLink] The URL to get the next set of results.
- *
- */
-export interface PrivateAccessServicesListResult {
-  value?: PrivateAccessServiceResult[];
-  nextLink?: string;
-}
-
-/**
- * @class
  * Initializes a new instance of the ApplicationGatewayListResult class.
  * @constructor
  * Response for ListApplicationGateways API service call.
@@ -6976,6 +6970,22 @@ export interface ExpressRouteServiceProviderListResult {
  */
 export interface LoadBalancerListResult {
   value?: LoadBalancer[];
+  nextLink?: string;
+}
+
+/**
+ * @class
+ * Initializes a new instance of the InboundNatRuleListResult class.
+ * @constructor
+ * Response for ListInboundNatRule API service call.
+ *
+ * @member {array} [value] A list of inbound nat rules in a load balancer.
+ *
+ * @member {string} [nextLink] The URL to get the next set of results.
+ *
+ */
+export interface InboundNatRuleListResult {
+  value?: InboundNatRule[];
   nextLink?: string;
 }
 
@@ -7285,23 +7295,6 @@ export interface LocalNetworkGatewayListResult {
   nextLink?: string;
 }
 
-/**
- * @class
- * Initializes a new instance of the PrivateAccessServicesListResult class.
- * @constructor
- * Response for the ListAvailablePrivateAccessServices API service call.
- *
- * @member {array} [value] List of available private access service values in a
- * region.
- *
- * @member {string} [nextLink] The URL to get the next set of results.
- *
- */
-export interface PrivateAccessServicesListResult {
-  value?: PrivateAccessServiceResult[];
-  nextLink?: string;
-}
-
 
 /**
  * @class
@@ -7393,6 +7386,19 @@ export interface ExpressRouteServiceProviderListResult extends Array<ExpressRout
  *
  */
 export interface LoadBalancerListResult extends Array<LoadBalancer> {
+  nextLink?: string;
+}
+
+/**
+ * @class
+ * Initializes a new instance of the InboundNatRuleListResult class.
+ * @constructor
+ * Response for ListInboundNatRule API service call.
+ *
+ * @member {string} [nextLink] The URL to get the next set of results.
+ *
+ */
+export interface InboundNatRuleListResult extends Array<InboundNatRule> {
   nextLink?: string;
 }
 
@@ -7637,18 +7643,5 @@ export interface VirtualNetworkGatewayConnectionListResult extends Array<Virtual
  *
  */
 export interface LocalNetworkGatewayListResult extends Array<LocalNetworkGateway> {
-  nextLink?: string;
-}
-
-/**
- * @class
- * Initializes a new instance of the PrivateAccessServicesListResult class.
- * @constructor
- * Response for the ListAvailablePrivateAccessServices API service call.
- *
- * @member {string} [nextLink] The URL to get the next set of results.
- *
- */
-export interface PrivateAccessServicesListResult extends Array<PrivateAccessServiceResult> {
   nextLink?: string;
 }

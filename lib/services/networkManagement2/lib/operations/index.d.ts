@@ -2393,6 +2393,9 @@ export interface ExpressRouteCircuitPeerings {
      * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.rules]
      * Collection of RouteFilterRules contained within a route filter.
      *
+     * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.peerings] A
+     * collection of references to express route circuit peerings.
+     *
      * @param {string} [peeringParameters.ipv6PeeringConfig.routeFilter.id]
      * Resource ID.
      *
@@ -2540,6 +2543,9 @@ export interface ExpressRouteCircuitPeerings {
      *
      * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.rules]
      * Collection of RouteFilterRules contained within a route filter.
+     *
+     * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.peerings] A
+     * collection of references to express route circuit peerings.
      *
      * @param {string} [peeringParameters.ipv6PeeringConfig.routeFilter.id]
      * Resource ID.
@@ -2831,6 +2837,9 @@ export interface ExpressRouteCircuitPeerings {
      * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.rules]
      * Collection of RouteFilterRules contained within a route filter.
      *
+     * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.peerings] A
+     * collection of references to express route circuit peerings.
+     *
      * @param {string} [peeringParameters.ipv6PeeringConfig.routeFilter.id]
      * Resource ID.
      *
@@ -2978,6 +2987,9 @@ export interface ExpressRouteCircuitPeerings {
      *
      * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.rules]
      * Collection of RouteFilterRules contained within a route filter.
+     *
+     * @param {array} [peeringParameters.ipv6PeeringConfig.routeFilter.peerings] A
+     * collection of references to express route circuit peerings.
      *
      * @param {string} [peeringParameters.ipv6PeeringConfig.routeFilter.id]
      * Resource ID.
@@ -5240,6 +5252,626 @@ export interface LoadBalancers {
     listNext(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.LoadBalancerListResult>;
     listNext(nextPageLink: string, callback: ServiceCallback<models.LoadBalancerListResult>): void;
     listNext(nextPageLink: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.LoadBalancerListResult>): void;
+}
+
+/**
+ * @class
+ * InboundNatRules
+ * __NOTE__: An instance of this class is automatically created for an
+ * instance of the NetworkManagementClient.
+ */
+export interface InboundNatRules {
+
+
+    /**
+     * Gets all the inbound nat rules in a load balancer.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<InboundNatRuleListResult>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    listWithHttpOperationResponse(resourceGroupName: string, loadBalancerName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.InboundNatRuleListResult>>;
+
+    /**
+     * Gets all the inbound nat rules in a load balancer.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {InboundNatRuleListResult} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {InboundNatRuleListResult} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link InboundNatRuleListResult} for more
+     *                      information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    list(resourceGroupName: string, loadBalancerName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.InboundNatRuleListResult>;
+    list(resourceGroupName: string, loadBalancerName: string, callback: ServiceCallback<models.InboundNatRuleListResult>): void;
+    list(resourceGroupName: string, loadBalancerName: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.InboundNatRuleListResult>): void;
+
+
+    /**
+     * Deletes the specified load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    deleteMethodWithHttpOperationResponse(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<void>>;
+
+    /**
+     * Deletes the specified load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {null} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {null} [result]   - The deserialized result object if an error did not occur.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    deleteMethod(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+    deleteMethod(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, callback: ServiceCallback<void>): void;
+    deleteMethod(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<void>): void;
+
+
+    /**
+     * Gets the specified load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {string} [options.expand] Expands referenced resources.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<InboundNatRule>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    getWithHttpOperationResponse(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options?: { expand? : string, customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.InboundNatRule>>;
+
+    /**
+     * Gets the specified load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {string} [options.expand] Expands referenced resources.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {InboundNatRule} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {InboundNatRule} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link InboundNatRule} for more information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    get(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options?: { expand? : string, customHeaders? : { [headerName: string]: string; } }): Promise<models.InboundNatRule>;
+    get(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, callback: ServiceCallback<models.InboundNatRule>): void;
+    get(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options: { expand? : string, customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.InboundNatRule>): void;
+
+
+    /**
+     * Creates or updates a load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} inboundNatRuleParameters Parameters supplied to the create
+     * or update inbound nat rule operation.
+     *
+     * @param {object} [inboundNatRuleParameters.frontendIPConfiguration] A
+     * reference to frontend IP addresses.
+     *
+     * @param {string} [inboundNatRuleParameters.frontendIPConfiguration.id]
+     * Resource ID.
+     *
+     * @param {string} [inboundNatRuleParameters.protocol] The transport protocol
+     * for the endpoint. Possible values are: 'Udp' or 'Tcp'. Possible values
+     * include: 'Udp', 'Tcp'
+     *
+     * @param {number} [inboundNatRuleParameters.frontendPort] The port for the
+     * external endpoint. Port numbers for each Rule must be unique within the Load
+     * Balancer. Acceptable values range from 1 to 65534.
+     *
+     * @param {number} [inboundNatRuleParameters.backendPort] The port used for the
+     * internal endpoint. Acceptable values range from 1 to 65535.
+     *
+     * @param {number} [inboundNatRuleParameters.idleTimeoutInMinutes] The timeout
+     * for the TCP idle connection. The value can be set between 4 and 30 minutes.
+     * The default value is 4 minutes. This element is only used when the protocol
+     * is set to TCP.
+     *
+     * @param {boolean} [inboundNatRuleParameters.enableFloatingIP] Configures a
+     * virtual machine's endpoint for the floating IP capability required to
+     * configure a SQL AlwaysOn Availability Group. This setting is required when
+     * using the SQL AlwaysOn Availability Groups in SQL server. This setting can't
+     * be changed after you create the endpoint.
+     *
+     * @param {string} [inboundNatRuleParameters.provisioningState] Gets the
+     * provisioning state of the public IP resource. Possible values are:
+     * 'Updating', 'Deleting', and 'Failed'.
+     *
+     * @param {string} [inboundNatRuleParameters.name] Gets name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
+     *
+     * @param {string} [inboundNatRuleParameters.etag] A unique read-only string
+     * that changes whenever the resource is updated.
+     *
+     * @param {string} [inboundNatRuleParameters.id] Resource ID.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<InboundNatRule>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    createOrUpdateWithHttpOperationResponse(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.InboundNatRule>>;
+
+    /**
+     * Creates or updates a load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} inboundNatRuleParameters Parameters supplied to the create
+     * or update inbound nat rule operation.
+     *
+     * @param {object} [inboundNatRuleParameters.frontendIPConfiguration] A
+     * reference to frontend IP addresses.
+     *
+     * @param {string} [inboundNatRuleParameters.frontendIPConfiguration.id]
+     * Resource ID.
+     *
+     * @param {string} [inboundNatRuleParameters.protocol] The transport protocol
+     * for the endpoint. Possible values are: 'Udp' or 'Tcp'. Possible values
+     * include: 'Udp', 'Tcp'
+     *
+     * @param {number} [inboundNatRuleParameters.frontendPort] The port for the
+     * external endpoint. Port numbers for each Rule must be unique within the Load
+     * Balancer. Acceptable values range from 1 to 65534.
+     *
+     * @param {number} [inboundNatRuleParameters.backendPort] The port used for the
+     * internal endpoint. Acceptable values range from 1 to 65535.
+     *
+     * @param {number} [inboundNatRuleParameters.idleTimeoutInMinutes] The timeout
+     * for the TCP idle connection. The value can be set between 4 and 30 minutes.
+     * The default value is 4 minutes. This element is only used when the protocol
+     * is set to TCP.
+     *
+     * @param {boolean} [inboundNatRuleParameters.enableFloatingIP] Configures a
+     * virtual machine's endpoint for the floating IP capability required to
+     * configure a SQL AlwaysOn Availability Group. This setting is required when
+     * using the SQL AlwaysOn Availability Groups in SQL server. This setting can't
+     * be changed after you create the endpoint.
+     *
+     * @param {string} [inboundNatRuleParameters.provisioningState] Gets the
+     * provisioning state of the public IP resource. Possible values are:
+     * 'Updating', 'Deleting', and 'Failed'.
+     *
+     * @param {string} [inboundNatRuleParameters.name] Gets name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
+     *
+     * @param {string} [inboundNatRuleParameters.etag] A unique read-only string
+     * that changes whenever the resource is updated.
+     *
+     * @param {string} [inboundNatRuleParameters.id] Resource ID.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {InboundNatRule} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {InboundNatRule} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link InboundNatRule} for more information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    createOrUpdate(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.InboundNatRule>;
+    createOrUpdate(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, callback: ServiceCallback<models.InboundNatRule>): void;
+    createOrUpdate(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.InboundNatRule>): void;
+
+
+    /**
+     * Deletes the specified load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<null>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    beginDeleteMethodWithHttpOperationResponse(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<void>>;
+
+    /**
+     * Deletes the specified load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {null} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {null} [result]   - The deserialized result object if an error did not occur.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    beginDeleteMethod(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<void>;
+    beginDeleteMethod(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, callback: ServiceCallback<void>): void;
+    beginDeleteMethod(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<void>): void;
+
+
+    /**
+     * Creates or updates a load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} inboundNatRuleParameters Parameters supplied to the create
+     * or update inbound nat rule operation.
+     *
+     * @param {object} [inboundNatRuleParameters.frontendIPConfiguration] A
+     * reference to frontend IP addresses.
+     *
+     * @param {string} [inboundNatRuleParameters.frontendIPConfiguration.id]
+     * Resource ID.
+     *
+     * @param {string} [inboundNatRuleParameters.protocol] The transport protocol
+     * for the endpoint. Possible values are: 'Udp' or 'Tcp'. Possible values
+     * include: 'Udp', 'Tcp'
+     *
+     * @param {number} [inboundNatRuleParameters.frontendPort] The port for the
+     * external endpoint. Port numbers for each Rule must be unique within the Load
+     * Balancer. Acceptable values range from 1 to 65534.
+     *
+     * @param {number} [inboundNatRuleParameters.backendPort] The port used for the
+     * internal endpoint. Acceptable values range from 1 to 65535.
+     *
+     * @param {number} [inboundNatRuleParameters.idleTimeoutInMinutes] The timeout
+     * for the TCP idle connection. The value can be set between 4 and 30 minutes.
+     * The default value is 4 minutes. This element is only used when the protocol
+     * is set to TCP.
+     *
+     * @param {boolean} [inboundNatRuleParameters.enableFloatingIP] Configures a
+     * virtual machine's endpoint for the floating IP capability required to
+     * configure a SQL AlwaysOn Availability Group. This setting is required when
+     * using the SQL AlwaysOn Availability Groups in SQL server. This setting can't
+     * be changed after you create the endpoint.
+     *
+     * @param {string} [inboundNatRuleParameters.provisioningState] Gets the
+     * provisioning state of the public IP resource. Possible values are:
+     * 'Updating', 'Deleting', and 'Failed'.
+     *
+     * @param {string} [inboundNatRuleParameters.name] Gets name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
+     *
+     * @param {string} [inboundNatRuleParameters.etag] A unique read-only string
+     * that changes whenever the resource is updated.
+     *
+     * @param {string} [inboundNatRuleParameters.id] Resource ID.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<InboundNatRule>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    beginCreateOrUpdateWithHttpOperationResponse(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.InboundNatRule>>;
+
+    /**
+     * Creates or updates a load balancer inbound nat rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} loadBalancerName The name of the load balancer.
+     *
+     * @param {string} inboundNatRuleName The name of the inbound nat rule.
+     *
+     * @param {object} inboundNatRuleParameters Parameters supplied to the create
+     * or update inbound nat rule operation.
+     *
+     * @param {object} [inboundNatRuleParameters.frontendIPConfiguration] A
+     * reference to frontend IP addresses.
+     *
+     * @param {string} [inboundNatRuleParameters.frontendIPConfiguration.id]
+     * Resource ID.
+     *
+     * @param {string} [inboundNatRuleParameters.protocol] The transport protocol
+     * for the endpoint. Possible values are: 'Udp' or 'Tcp'. Possible values
+     * include: 'Udp', 'Tcp'
+     *
+     * @param {number} [inboundNatRuleParameters.frontendPort] The port for the
+     * external endpoint. Port numbers for each Rule must be unique within the Load
+     * Balancer. Acceptable values range from 1 to 65534.
+     *
+     * @param {number} [inboundNatRuleParameters.backendPort] The port used for the
+     * internal endpoint. Acceptable values range from 1 to 65535.
+     *
+     * @param {number} [inboundNatRuleParameters.idleTimeoutInMinutes] The timeout
+     * for the TCP idle connection. The value can be set between 4 and 30 minutes.
+     * The default value is 4 minutes. This element is only used when the protocol
+     * is set to TCP.
+     *
+     * @param {boolean} [inboundNatRuleParameters.enableFloatingIP] Configures a
+     * virtual machine's endpoint for the floating IP capability required to
+     * configure a SQL AlwaysOn Availability Group. This setting is required when
+     * using the SQL AlwaysOn Availability Groups in SQL server. This setting can't
+     * be changed after you create the endpoint.
+     *
+     * @param {string} [inboundNatRuleParameters.provisioningState] Gets the
+     * provisioning state of the public IP resource. Possible values are:
+     * 'Updating', 'Deleting', and 'Failed'.
+     *
+     * @param {string} [inboundNatRuleParameters.name] Gets name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
+     *
+     * @param {string} [inboundNatRuleParameters.etag] A unique read-only string
+     * that changes whenever the resource is updated.
+     *
+     * @param {string} [inboundNatRuleParameters.id] Resource ID.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {InboundNatRule} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {InboundNatRule} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link InboundNatRule} for more information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    beginCreateOrUpdate(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.InboundNatRule>;
+    beginCreateOrUpdate(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, callback: ServiceCallback<models.InboundNatRule>): void;
+    beginCreateOrUpdate(resourceGroupName: string, loadBalancerName: string, inboundNatRuleName: string, inboundNatRuleParameters: models.InboundNatRule, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.InboundNatRule>): void;
+
+
+    /**
+     * Gets all the inbound nat rules in a load balancer.
+     *
+     * @param {string} nextPageLink The NextLink from the previous successful call
+     * to List operation.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<InboundNatRuleListResult>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.InboundNatRuleListResult>>;
+
+    /**
+     * Gets all the inbound nat rules in a load balancer.
+     *
+     * @param {string} nextPageLink The NextLink from the previous successful call
+     * to List operation.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {InboundNatRuleListResult} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {InboundNatRuleListResult} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link InboundNatRuleListResult} for more
+     *                      information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    listNext(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.InboundNatRuleListResult>;
+    listNext(nextPageLink: string, callback: ServiceCallback<models.InboundNatRuleListResult>): void;
+    listNext(nextPageLink: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.InboundNatRuleListResult>): void;
 }
 
 /**
@@ -7509,10 +8141,22 @@ export interface SecurityRules {
      * can also be used. If this is an ingress rule, specifies where network
      * traffic originates from.
      *
+     * @param {array} [securityRuleParameters.sourceAddressPrefixes] The CIDR or
+     * source IP ranges.
+     *
      * @param {string} securityRuleParameters.destinationAddressPrefix The
-     * destination address prefix. CIDR or source IP range. Asterix '*' can also be
-     * used to match all source IPs. Default tags such as 'VirtualNetwork',
+     * destination address prefix. CIDR or destination IP range. Asterix '*' can
+     * also be used to match all source IPs. Default tags such as 'VirtualNetwork',
      * 'AzureLoadBalancer' and 'Internet' can also be used.
+     *
+     * @param {array} [securityRuleParameters.destinationAddressPrefixes] The
+     * destination address prefixes. CIDR or destination IP ranges.
+     *
+     * @param {array} [securityRuleParameters.sourcePortRanges] The source port
+     * ranges.
+     *
+     * @param {array} [securityRuleParameters.destinationPortRanges] The
+     * destination port ranges.
      *
      * @param {string} securityRuleParameters.access The network traffic is allowed
      * or denied. Possible values are: 'Allow' and 'Deny'. Possible values include:
@@ -7588,10 +8232,22 @@ export interface SecurityRules {
      * can also be used. If this is an ingress rule, specifies where network
      * traffic originates from.
      *
+     * @param {array} [securityRuleParameters.sourceAddressPrefixes] The CIDR or
+     * source IP ranges.
+     *
      * @param {string} securityRuleParameters.destinationAddressPrefix The
-     * destination address prefix. CIDR or source IP range. Asterix '*' can also be
-     * used to match all source IPs. Default tags such as 'VirtualNetwork',
+     * destination address prefix. CIDR or destination IP range. Asterix '*' can
+     * also be used to match all source IPs. Default tags such as 'VirtualNetwork',
      * 'AzureLoadBalancer' and 'Internet' can also be used.
+     *
+     * @param {array} [securityRuleParameters.destinationAddressPrefixes] The
+     * destination address prefixes. CIDR or destination IP ranges.
+     *
+     * @param {array} [securityRuleParameters.sourcePortRanges] The source port
+     * ranges.
+     *
+     * @param {array} [securityRuleParameters.destinationPortRanges] The
+     * destination port ranges.
      *
      * @param {string} securityRuleParameters.access The network traffic is allowed
      * or denied. Possible values are: 'Allow' and 'Deny'. Possible values include:
@@ -7812,10 +8468,22 @@ export interface SecurityRules {
      * can also be used. If this is an ingress rule, specifies where network
      * traffic originates from.
      *
+     * @param {array} [securityRuleParameters.sourceAddressPrefixes] The CIDR or
+     * source IP ranges.
+     *
      * @param {string} securityRuleParameters.destinationAddressPrefix The
-     * destination address prefix. CIDR or source IP range. Asterix '*' can also be
-     * used to match all source IPs. Default tags such as 'VirtualNetwork',
+     * destination address prefix. CIDR or destination IP range. Asterix '*' can
+     * also be used to match all source IPs. Default tags such as 'VirtualNetwork',
      * 'AzureLoadBalancer' and 'Internet' can also be used.
+     *
+     * @param {array} [securityRuleParameters.destinationAddressPrefixes] The
+     * destination address prefixes. CIDR or destination IP ranges.
+     *
+     * @param {array} [securityRuleParameters.sourcePortRanges] The source port
+     * ranges.
+     *
+     * @param {array} [securityRuleParameters.destinationPortRanges] The
+     * destination port ranges.
      *
      * @param {string} securityRuleParameters.access The network traffic is allowed
      * or denied. Possible values are: 'Allow' and 'Deny'. Possible values include:
@@ -7891,10 +8559,22 @@ export interface SecurityRules {
      * can also be used. If this is an ingress rule, specifies where network
      * traffic originates from.
      *
+     * @param {array} [securityRuleParameters.sourceAddressPrefixes] The CIDR or
+     * source IP ranges.
+     *
      * @param {string} securityRuleParameters.destinationAddressPrefix The
-     * destination address prefix. CIDR or source IP range. Asterix '*' can also be
-     * used to match all source IPs. Default tags such as 'VirtualNetwork',
+     * destination address prefix. CIDR or destination IP range. Asterix '*' can
+     * also be used to match all source IPs. Default tags such as 'VirtualNetwork',
      * 'AzureLoadBalancer' and 'Internet' can also be used.
+     *
+     * @param {array} [securityRuleParameters.destinationAddressPrefixes] The
+     * destination address prefixes. CIDR or destination IP ranges.
+     *
+     * @param {array} [securityRuleParameters.sourcePortRanges] The source port
+     * ranges.
+     *
+     * @param {array} [securityRuleParameters.destinationPortRanges] The
+     * destination port ranges.
      *
      * @param {string} securityRuleParameters.access The network traffic is allowed
      * or denied. Possible values are: 'Allow' and 'Deny'. Possible values include:
@@ -7976,6 +8656,202 @@ export interface SecurityRules {
 
     /**
      * Gets all security rules in a network security group.
+     *
+     * @param {string} nextPageLink The NextLink from the previous successful call
+     * to List operation.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {SecurityRuleListResult} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {SecurityRuleListResult} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link SecurityRuleListResult} for more
+     *                      information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    listNext(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.SecurityRuleListResult>;
+    listNext(nextPageLink: string, callback: ServiceCallback<models.SecurityRuleListResult>): void;
+    listNext(nextPageLink: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.SecurityRuleListResult>): void;
+}
+
+/**
+ * @class
+ * DefaultSecurityRules
+ * __NOTE__: An instance of this class is automatically created for an
+ * instance of the NetworkManagementClient.
+ */
+export interface DefaultSecurityRules {
+
+
+    /**
+     * Gets all default security rules in a network security group.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} networkSecurityGroupName The name of the network security
+     * group.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<SecurityRuleListResult>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    listWithHttpOperationResponse(resourceGroupName: string, networkSecurityGroupName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.SecurityRuleListResult>>;
+
+    /**
+     * Gets all default security rules in a network security group.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} networkSecurityGroupName The name of the network security
+     * group.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {SecurityRuleListResult} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {SecurityRuleListResult} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link SecurityRuleListResult} for more
+     *                      information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    list(resourceGroupName: string, networkSecurityGroupName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.SecurityRuleListResult>;
+    list(resourceGroupName: string, networkSecurityGroupName: string, callback: ServiceCallback<models.SecurityRuleListResult>): void;
+    list(resourceGroupName: string, networkSecurityGroupName: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.SecurityRuleListResult>): void;
+
+
+    /**
+     * Get the specified default network security rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} networkSecurityGroupName The name of the network security
+     * group.
+     *
+     * @param {string} defaultSecurityRuleName The name of the default security
+     * rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<SecurityRule>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    getWithHttpOperationResponse(resourceGroupName: string, networkSecurityGroupName: string, defaultSecurityRuleName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.SecurityRule>>;
+
+    /**
+     * Get the specified default network security rule.
+     *
+     * @param {string} resourceGroupName The name of the resource group.
+     *
+     * @param {string} networkSecurityGroupName The name of the network security
+     * group.
+     *
+     * @param {string} defaultSecurityRuleName The name of the default security
+     * rule.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @param {ServiceCallback} [optionalCallback] - The optional callback.
+     *
+     * @returns {ServiceCallback|Promise} If a callback was passed as the last
+     * parameter then it returns the callback else returns a Promise.
+     *
+     * {Promise} A promise is returned.
+     *
+     *                      @resolve {SecurityRule} - The deserialized result object.
+     *
+     *                      @reject {Error|ServiceError} - The error object.
+     *
+     * {ServiceCallback} optionalCallback(err, result, request, response)
+     *
+     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
+     *
+     *                      {SecurityRule} [result]   - The deserialized result object if an error did not occur.
+     *                      See {@link SecurityRule} for more information.
+     *
+     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
+     *
+     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
+     */
+    get(resourceGroupName: string, networkSecurityGroupName: string, defaultSecurityRuleName: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.SecurityRule>;
+    get(resourceGroupName: string, networkSecurityGroupName: string, defaultSecurityRuleName: string, callback: ServiceCallback<models.SecurityRule>): void;
+    get(resourceGroupName: string, networkSecurityGroupName: string, defaultSecurityRuleName: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.SecurityRule>): void;
+
+
+    /**
+     * Gets all default security rules in a network security group.
+     *
+     * @param {string} nextPageLink The NextLink from the previous successful call
+     * to List operation.
+     *
+     * @param {object} [options] Optional Parameters.
+     *
+     * @param {object} [options.customHeaders] Headers that will be added to the
+     * request
+     *
+     * @returns {Promise} A promise is returned
+     *
+     * @resolve {HttpOperationResponse<SecurityRuleListResult>} - The deserialized result object.
+     *
+     * @reject {Error|ServiceError} - The error object.
+     */
+    listNextWithHttpOperationResponse(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.SecurityRuleListResult>>;
+
+    /**
+     * Gets all default security rules in a network security group.
      *
      * @param {string} nextPageLink The NextLink from the previous successful call
      * to List operation.
@@ -10822,7 +11698,8 @@ export interface PublicIPAddresses {
      * record is created pointing from the IP address in the in-addr.arpa domain to
      * the reverse FQDN.
      *
-     * @param {string} [parameters.ipAddress]
+     * @param {string} [parameters.ipAddress] The IP address associated with the
+     * public IP address resource.
      *
      * @param {number} [parameters.idleTimeoutInMinutes] The idle timeout of the
      * public IP address.
@@ -10893,7 +11770,8 @@ export interface PublicIPAddresses {
      * record is created pointing from the IP address in the in-addr.arpa domain to
      * the reverse FQDN.
      *
-     * @param {string} [parameters.ipAddress]
+     * @param {string} [parameters.ipAddress] The IP address associated with the
+     * public IP address resource.
      *
      * @param {number} [parameters.idleTimeoutInMinutes] The idle timeout of the
      * public IP address.
@@ -11370,7 +12248,8 @@ export interface PublicIPAddresses {
      * record is created pointing from the IP address in the in-addr.arpa domain to
      * the reverse FQDN.
      *
-     * @param {string} [parameters.ipAddress]
+     * @param {string} [parameters.ipAddress] The IP address associated with the
+     * public IP address resource.
      *
      * @param {number} [parameters.idleTimeoutInMinutes] The idle timeout of the
      * public IP address.
@@ -11441,7 +12320,8 @@ export interface PublicIPAddresses {
      * record is created pointing from the IP address in the in-addr.arpa domain to
      * the reverse FQDN.
      *
-     * @param {string} [parameters.ipAddress]
+     * @param {string} [parameters.ipAddress] The IP address associated with the
+     * public IP address resource.
      *
      * @param {number} [parameters.idleTimeoutInMinutes] The idle timeout of the
      * public IP address.
@@ -11875,6 +12755,9 @@ export interface RouteFilters {
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
      *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
+     *
      * @param {string} [routeFilterParameters.id] Resource ID.
      *
      * @param {string} [routeFilterParameters.location] Resource location.
@@ -11906,6 +12789,9 @@ export interface RouteFilters {
      *
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
+     *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
      *
      * @param {string} [routeFilterParameters.id] Resource ID.
      *
@@ -11958,6 +12844,9 @@ export interface RouteFilters {
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
      *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
+     *
      * @param {object} [routeFilterParameters.tags] Resource tags.
      *
      * @param {string} [routeFilterParameters.id] Resource ID.
@@ -11987,6 +12876,9 @@ export interface RouteFilters {
      *
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
+     *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
      *
      * @param {object} [routeFilterParameters.tags] Resource tags.
      *
@@ -12201,6 +13093,9 @@ export interface RouteFilters {
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
      *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
+     *
      * @param {string} [routeFilterParameters.id] Resource ID.
      *
      * @param {string} [routeFilterParameters.location] Resource location.
@@ -12232,6 +13127,9 @@ export interface RouteFilters {
      *
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
+     *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
      *
      * @param {string} [routeFilterParameters.id] Resource ID.
      *
@@ -12284,6 +13182,9 @@ export interface RouteFilters {
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
      *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
+     *
      * @param {object} [routeFilterParameters.tags] Resource tags.
      *
      * @param {string} [routeFilterParameters.id] Resource ID.
@@ -12313,6 +13214,9 @@ export interface RouteFilters {
      *
      * @param {array} [routeFilterParameters.rules] Collection of RouteFilterRules
      * contained within a route filter.
+     *
+     * @param {array} [routeFilterParameters.peerings] A collection of references
+     * to express route circuit peerings.
      *
      * @param {object} [routeFilterParameters.tags] Resource tags.
      *
@@ -12617,6 +13521,10 @@ export interface RouteFilterRules {
      * @param {array} routeFilterRuleParameters.communities The collection for bgp
      * community values to filter on. e.g. ['12076:5010','12076:5020']
      *
+     * @param {string} [routeFilterRuleParameters.name] The name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
+     *
      * @param {string} [routeFilterRuleParameters.location] Resource location.
      *
      * @param {object} [routeFilterRuleParameters.tags] Resource tags.
@@ -12654,6 +13562,10 @@ export interface RouteFilterRules {
      *
      * @param {array} routeFilterRuleParameters.communities The collection for bgp
      * community values to filter on. e.g. ['12076:5010','12076:5020']
+     *
+     * @param {string} [routeFilterRuleParameters.name] The name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
      *
      * @param {string} [routeFilterRuleParameters.location] Resource location.
      *
@@ -12925,6 +13837,10 @@ export interface RouteFilterRules {
      * @param {array} routeFilterRuleParameters.communities The collection for bgp
      * community values to filter on. e.g. ['12076:5010','12076:5020']
      *
+     * @param {string} [routeFilterRuleParameters.name] The name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
+     *
      * @param {string} [routeFilterRuleParameters.location] Resource location.
      *
      * @param {object} [routeFilterRuleParameters.tags] Resource tags.
@@ -12962,6 +13878,10 @@ export interface RouteFilterRules {
      *
      * @param {array} routeFilterRuleParameters.communities The collection for bgp
      * community values to filter on. e.g. ['12076:5010','12076:5020']
+     *
+     * @param {string} [routeFilterRuleParameters.name] The name of the resource
+     * that is unique within a resource group. This name can be used to access the
+     * resource.
      *
      * @param {string} [routeFilterRuleParameters.location] Resource location.
      *
@@ -15592,9 +16512,6 @@ export interface Subnets {
      *
      * @param {object} [subnetParameters.routeTable.tags] Resource tags.
      *
-     * @param {array} [subnetParameters.privateAccessServices] An array of private
-     * access services values.
-     *
      * @param {array} [subnetParameters.resourceNavigationLinks] Gets an array of
      * references to the external resources using subnet.
      *
@@ -15682,9 +16599,6 @@ export interface Subnets {
      * @param {string} [subnetParameters.routeTable.location] Resource location.
      *
      * @param {object} [subnetParameters.routeTable.tags] Resource tags.
-     *
-     * @param {array} [subnetParameters.privateAccessServices] An array of private
-     * access services values.
      *
      * @param {array} [subnetParameters.resourceNavigationLinks] Gets an array of
      * references to the external resources using subnet.
@@ -15914,9 +16828,6 @@ export interface Subnets {
      *
      * @param {object} [subnetParameters.routeTable.tags] Resource tags.
      *
-     * @param {array} [subnetParameters.privateAccessServices] An array of private
-     * access services values.
-     *
      * @param {array} [subnetParameters.resourceNavigationLinks] Gets an array of
      * references to the external resources using subnet.
      *
@@ -16004,9 +16915,6 @@ export interface Subnets {
      * @param {string} [subnetParameters.routeTable.location] Resource location.
      *
      * @param {object} [subnetParameters.routeTable.tags] Resource tags.
-     *
-     * @param {array} [subnetParameters.privateAccessServices] An array of private
-     * access services values.
      *
      * @param {array} [subnetParameters.resourceNavigationLinks] Gets an array of
      * references to the external resources using subnet.
@@ -20514,129 +21422,4 @@ export interface LocalNetworkGateways {
     listNext(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.LocalNetworkGatewayListResult>;
     listNext(nextPageLink: string, callback: ServiceCallback<models.LocalNetworkGatewayListResult>): void;
     listNext(nextPageLink: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.LocalNetworkGatewayListResult>): void;
-}
-
-/**
- * @class
- * AvailablePrivateAccessServices
- * __NOTE__: An instance of this class is automatically created for an
- * instance of the NetworkManagementClient.
- */
-export interface AvailablePrivateAccessServices {
-
-
-    /**
-     * List what values of private access services are available for use.
-     *
-     * @param {string} location The location to check available private access
-     * values.
-     *
-     * @param {object} [options] Optional Parameters.
-     *
-     * @param {object} [options.customHeaders] Headers that will be added to the
-     * request
-     *
-     * @returns {Promise} A promise is returned
-     *
-     * @resolve {HttpOperationResponse<PrivateAccessServicesListResult>} - The deserialized result object.
-     *
-     * @reject {Error|ServiceError} - The error object.
-     */
-    listWithHttpOperationResponse(location: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.PrivateAccessServicesListResult>>;
-
-    /**
-     * List what values of private access services are available for use.
-     *
-     * @param {string} location The location to check available private access
-     * values.
-     *
-     * @param {object} [options] Optional Parameters.
-     *
-     * @param {object} [options.customHeaders] Headers that will be added to the
-     * request
-     *
-     * @param {ServiceCallback} [optionalCallback] - The optional callback.
-     *
-     * @returns {ServiceCallback|Promise} If a callback was passed as the last
-     * parameter then it returns the callback else returns a Promise.
-     *
-     * {Promise} A promise is returned.
-     *
-     *                      @resolve {PrivateAccessServicesListResult} - The deserialized result object.
-     *
-     *                      @reject {Error|ServiceError} - The error object.
-     *
-     * {ServiceCallback} optionalCallback(err, result, request, response)
-     *
-     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
-     *
-     *                      {PrivateAccessServicesListResult} [result]   - The deserialized result object if an error did not occur.
-     *                      See {@link PrivateAccessServicesListResult} for more
-     *                      information.
-     *
-     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
-     *
-     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
-     */
-    list(location: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.PrivateAccessServicesListResult>;
-    list(location: string, callback: ServiceCallback<models.PrivateAccessServicesListResult>): void;
-    list(location: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.PrivateAccessServicesListResult>): void;
-
-
-    /**
-     * List what values of private access services are available for use.
-     *
-     * @param {string} nextPageLink The NextLink from the previous successful call
-     * to List operation.
-     *
-     * @param {object} [options] Optional Parameters.
-     *
-     * @param {object} [options.customHeaders] Headers that will be added to the
-     * request
-     *
-     * @returns {Promise} A promise is returned
-     *
-     * @resolve {HttpOperationResponse<PrivateAccessServicesListResult>} - The deserialized result object.
-     *
-     * @reject {Error|ServiceError} - The error object.
-     */
-    listNextWithHttpOperationResponse(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<HttpOperationResponse<models.PrivateAccessServicesListResult>>;
-
-    /**
-     * List what values of private access services are available for use.
-     *
-     * @param {string} nextPageLink The NextLink from the previous successful call
-     * to List operation.
-     *
-     * @param {object} [options] Optional Parameters.
-     *
-     * @param {object} [options.customHeaders] Headers that will be added to the
-     * request
-     *
-     * @param {ServiceCallback} [optionalCallback] - The optional callback.
-     *
-     * @returns {ServiceCallback|Promise} If a callback was passed as the last
-     * parameter then it returns the callback else returns a Promise.
-     *
-     * {Promise} A promise is returned.
-     *
-     *                      @resolve {PrivateAccessServicesListResult} - The deserialized result object.
-     *
-     *                      @reject {Error|ServiceError} - The error object.
-     *
-     * {ServiceCallback} optionalCallback(err, result, request, response)
-     *
-     *                      {Error|ServiceError}  err        - The Error object if an error occurred, null otherwise.
-     *
-     *                      {PrivateAccessServicesListResult} [result]   - The deserialized result object if an error did not occur.
-     *                      See {@link PrivateAccessServicesListResult} for more
-     *                      information.
-     *
-     *                      {WebResource} [request]  - The HTTP Request object if an error did not occur.
-     *
-     *                      {http.IncomingMessage} [response] - The HTTP Response stream if an error did not occur.
-     */
-    listNext(nextPageLink: string, options?: { customHeaders? : { [headerName: string]: string; } }): Promise<models.PrivateAccessServicesListResult>;
-    listNext(nextPageLink: string, callback: ServiceCallback<models.PrivateAccessServicesListResult>): void;
-    listNext(nextPageLink: string, options: { customHeaders? : { [headerName: string]: string; } }, callback: ServiceCallback<models.PrivateAccessServicesListResult>): void;
 }

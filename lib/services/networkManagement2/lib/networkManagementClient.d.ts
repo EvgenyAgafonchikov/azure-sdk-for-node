@@ -59,9 +59,11 @@ declare class NetworkManagementClient {
   expressRouteCircuits: operations.ExpressRouteCircuits;
   expressRouteServiceProviders: operations.ExpressRouteServiceProviders;
   loadBalancers: operations.LoadBalancers;
+  inboundNatRules: operations.InboundNatRules;
   networkInterfaces: operations.NetworkInterfaces;
   networkSecurityGroups: operations.NetworkSecurityGroups;
   securityRules: operations.SecurityRules;
+  defaultSecurityRules: operations.DefaultSecurityRules;
   networkWatchers: operations.NetworkWatchers;
   packetCaptures: operations.PacketCaptures;
   publicIPAddresses: operations.PublicIPAddresses;
@@ -77,7 +79,6 @@ declare class NetworkManagementClient {
   virtualNetworkGateways: operations.VirtualNetworkGateways;
   virtualNetworkGatewayConnections: operations.VirtualNetworkGatewayConnections;
   localNetworkGateways: operations.LocalNetworkGateways;
-  availablePrivateAccessServices: operations.AvailablePrivateAccessServices;
 
 
   /**
